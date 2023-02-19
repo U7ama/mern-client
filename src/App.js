@@ -28,7 +28,7 @@ const App = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(event)
-    const response = await fetch('https://mern-backend-gold.vercel.app/login', {
+    const response = await fetch('https://mern-server-eight.vercel.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch('https://mern-backend-gold.vercel.app/submit-form', {
+      const response = await fetch('https://mern-server-eight.vercel.app/submit-form', {
         method: 'POST',
         body: formData,
       });
