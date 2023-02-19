@@ -4,6 +4,8 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [carModel, setCarModel] = useState('');
+  const [buttonSubmitText, setSubmitButtonText] = useState('Submit');
+  const [buttonSignInText, setSignInButtonText] = useState('Sign In');
   const [price, setPrice] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
   const [token, setToken] = useState();
@@ -26,6 +28,7 @@ const App = () => {
   };
 
   const handleSubmit = async (event) => {
+    setSignInButtonText("Loading...");
     event.preventDefault();
     console.log(event)
     const response = await fetch('https://mern-server-eight.vercel.app/login', {
@@ -39,15 +42,18 @@ const App = () => {
     if (response.ok) {
       const { token } = await response.json();
       localStorage.setItem('token', token);
+      setSignInButtonText("Sign In");
       console.log(token)
       setToken(token)
 
     } else {
+      setSignInButtonText("Sign In");
       setError(true)
     }
   };
 
   const handleSubmitForm = async (event) => {
+    setSubmitButtonText("Loading");
     event.preventDefault();
 
     const formData = new FormData();
@@ -68,10 +74,12 @@ const App = () => {
         setError(false)
         console.log('Form data submitted successfully!');
         setSuccessDataInput(true);
+        setSubmitButtonText("Submit");
       } else {
         console.error('Form submission failed.');
       }
     } catch (error) {
+      setSubmitButtonText("Submit");
       console.error('Error submitting form data:', error);
     }
   };
@@ -139,7 +147,7 @@ const App = () => {
             type="submit"
             className="bg-blue-500 text-white rounded-lg px-3 py-2 hover:bg-blue-600"
           >
-            Submit
+            {buttonSubmitText}
           </button>
           {
             successDataInput && <p className='text-center mt-[10px]'>Successfully Data Submited for {username}</p>
@@ -172,7 +180,7 @@ const App = () => {
             />
           </div>
           <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Sign In
+            {buttonSignInText}
           </button>
           {
             error && (<div class="flex justify-center mt-[10px]">
